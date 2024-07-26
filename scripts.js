@@ -17,10 +17,10 @@ const products = [
 // 1. ForEach basics
 provinces.forEach(province => console.log(province));
 names.forEach(name => console.log(name));
-names.forEach((name, index) => console.log('${name} (${provinces[index]})'));
+names.forEach((name, index) => console.log(`${name} (${provinces[index]})`));
 
 //2. Uppercase transformation
-console.log(province.map(province => province.toUpperCase()));
+console.log(provinces.map(provinces => provinces.toUpperCase()));
 
 //3. name lenghts
 console.log(names.map(name => name.length));
@@ -29,10 +29,36 @@ console.log(names.map(name => name.length));
 console.log([...provinces].sort());
 
 //5. filtering cape
-console.log(provinces.filter(provinces => !province.includes('Cape')).length);
+console.log(provinces.filter(provinces => !provinces.includes('Cape')).length);
 
 //6. finding 'S'
 console.log(names.map(name => name.includes('S')));
 
 //7. creating object mapping
 console.log(names.reduce((acc, name, index) => ({ ...acc, [name]: provinces[index] }), {}));
+
+// Advanced Exercises
+
+// log products
+products.forEach(product => console.log(product.product));
+
+// filter by name length
+console.log(products.filter(product => product.product.length <= 5));
+
+// price manipulation
+const validPrices = products
+  .filter(product => typeof product.price === 'string' && product.price.trim() !== '' && !isNaN(Number(product.price)))
+  .map(product => Number(product.price));
+console.log(validPrices.reduce((acc, price) => acc + price, 0));
+
+// concatenate product names
+console.log(products.reduce((acc, product) => acc + product.product, ''));
+
+// find extremes in prices
+const prices = products
+  .filter(product => product.price.trim === 'string' && product.price.trim() !== '' && !isNaN(Number(product.price)))
+  .map(product => Number(product.price));
+console.log(`Highest: ${Math.max(...prices)}. Lowest: ${Math.min(...prices)}.`);
+
+// object transformation
+console.log(products.map(({ product, price }) => ({ name: product, cost: price })));
